@@ -95,22 +95,7 @@ export function DataTable<TData, TValue>({
     };
 
     return (
-        <div className="px-3">
-            <div className="flex items-center py-4">
-                <Input
-                    placeholder="Find meals"
-                    value={
-                        (table.getColumn("name")?.getFilterValue() as string) ??
-                        ""
-                    }
-                    onChange={(event) => {
-                        table
-                            .getColumn("name")
-                            ?.setFilterValue(event.target.value);
-                    }}
-                    className="max-w-sm"
-                />
-            </div>
+        <div>
             <div className="rounded-md border">
                 <Table>
                     <TableHeader>
