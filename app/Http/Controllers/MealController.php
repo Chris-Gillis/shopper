@@ -15,26 +15,12 @@ class MealController extends Controller
      */
     public function index()
     {
-        $meals = User::find(Auth::id())->meals()->get();
+        $user = User::find(Auth::id());
+        $meals = $user->meals()->withCount('ingredients')->get();
+        
         return Inertia::render('Meals', [
             'meals' => $meals,
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -42,7 +28,9 @@ class MealController extends Controller
      */
     public function show(Meal $meal)
     {
-        //
+        return Inertia::render('MealDetail', [
+            'meal' => $meal,
+        ]);
     }
 
     /**

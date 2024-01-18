@@ -22,6 +22,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Ingredient whereMealId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Ingredient whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Ingredient whereUpdatedAt($value)
+ * @property string $amount
+ * @property-read \App\Models\Meal $meal
+ * @method static \Illuminate\Database\Eloquent\Builder|Ingredient whereAmount($value)
  * @mixin \Eloquent
  */
 class Ingredient extends Model

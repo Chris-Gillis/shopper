@@ -17,6 +17,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->string('name');
+            $table->string('amount');
 
             $table->foreign('meal_id')
                 ->references('id')

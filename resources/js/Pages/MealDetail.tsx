@@ -11,27 +11,14 @@ import { Button } from "@/Components/ui/button";
 
 import { ArrowUpDown } from "lucide-react";
 
-const columns: ColumnDef<Models.Meal>[] = [
+const columns: ColumnDef<Models.Ingredient>[] = [
     {
         accessorKey: "name",
-        header: ({ column }) => (
-            <Button
-                variant="ghost"
-                onClick={() =>
-                    column.toggleSorting(column.getIsSorted() === "asc")
-                }
-            >
-                Name
-                <ArrowUpDown className="ml-2 h-4 w-4" />
-            </Button>
-        ),
+        header: "Name",
     },
     {
-        accessorKey: "ingredients_count",
-        header: "# Ingredients",
-        cell: ({ row }) => {
-            return row.original.ingredients_count ?? 0;
-        },
+        accessorKey: "amount",
+        header: "Amount",
     },
     {
         accessorKey: "created_at",
@@ -45,8 +32,8 @@ const columns: ColumnDef<Models.Meal>[] = [
 
 export default function Meals({
     auth,
-    meals,
-}: PageProps<{ meals: Models.Meal[] }>) {
+    meal,
+}: PageProps<{ meal: Models.Meal }>) {
     const openMeal = (meal: Models.Meal) => {
         router.get(meal.route);
     };
@@ -56,19 +43,19 @@ export default function Meals({
             user={auth.user}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    Dashboard
+                    {meal.name}
                 </h2>
             }
         >
-            <Head title="Meals" />
+            <Head title={meal.name} />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <DataTable
                             columns={columns}
-                            data={meals}
-                            onRowClick={openMeal}
+                            data={meal.ingredients}
+                            showPagination={false}
                         />
                     </div>
                 </div>

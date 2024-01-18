@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -22,6 +23,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Meal whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Meal whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Meal whereUserId($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Ingredient> $ingredients
+ * @property-read int|null $ingredients_count
+ * @method static \Database\Factories\MealFactory factory($count = null, $state = [])
  * @mixin \Eloquent
  */
 class Meal extends Model
@@ -32,8 +36,19 @@ class Meal extends Model
         'name',
     ];
 
+    protected $appends = [
+        'route',
+    ];
+
     public function ingredients(): HasMany
     {
         return $this->hasMany(Ingredient::class);
+    }
+    
+    protected function route(): Attribute
+    {
+        return new Attribute(
+            get: fn () => route('meals.show', $this)
+        );
     }
 }

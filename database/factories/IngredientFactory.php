@@ -2,13 +2,12 @@
 
 namespace Database\Factories;
 
-use FakerRestaurant\Provider\en_US\Restaurant;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Meal>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Ingredient>
  */
-class MealFactory extends Factory
+class IngredientFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,12 +16,13 @@ class MealFactory extends Factory
      */
     public function definition(): array
     {
-        $this->faker->addProvider(new Restaurant($this->faker));
+        $coin = rand(0, 1);
+        $food = $coin ? $this->faker->meatName() : $this->faker->vegetableName();
         return [
-            'name' => $this->faker->foodName(),
+            'name' => $food,
+            'amount' => strval($this->faker->randomFloat(2, 0, 100)),
             'created_at' => $this->faker->dateTimeInInterval('-6 months', '+0 months'),
             'updated_at' => $this->faker->dateTimeInInterval('+0 months', '+6 months'),
-            'user_id' => 1,
         ];
     }
 }
