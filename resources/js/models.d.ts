@@ -12,30 +12,45 @@ declare namespace Models {
         email_verified_at: string | null;
         password: string;
         remember_token: string | null;
-        created_at: string | null;
-        updated_at: string | null;
-        meals: Array<Models.Meal>;
-        meals_count: number;
+        created_at: string;
+        updated_at: string;
     }
 
     export interface Meal {
         id: number;
-        user_id: number;
-        created_at: string | null;
-        updated_at: string | null;
+        created_at: string;
+        updated_at: string;
         name: string;
         route: string;
-        ingredients: Array<Models.Ingredient>;
-        ingredients_count: number | null;
+        ingredients: Models.Ingredient[];
+        ingredients_count: number;
     }
 
     export interface Ingredient {
         id: number;
         meal_id: number;
-        created_at: string | null;
-        updated_at: string | null;
+        created_at: string;
+        updated_at: string;
         name: string;
         amount: string;
-        meal?: Models.Meal | null;
+    }
+
+    export interface GroceryList {
+        id: number;
+        user_id: number;
+        created_at: string;
+        updated_at: string;
+        route: string;
+        list_items: Models.GroceryListItem[];
+        list_items_count: number;
+    }
+
+    export interface GroceryListItem {
+        id: number;
+        grocery_list_id: number;
+        created_at: string;
+        updated_at: string;
+        name: string;
+        amount: string;
     }
 }

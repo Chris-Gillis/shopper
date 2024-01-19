@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ListController;
 use App\Http\Controllers\MealController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -31,6 +32,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('meals', MealController::class)
+    ->only('index', 'show', 'create', 'edit')
+    ->middleware('auth');
+
+Route::resource('lists', ListController::class)
     ->only('index', 'show', 'create', 'edit')
     ->middleware('auth');
 

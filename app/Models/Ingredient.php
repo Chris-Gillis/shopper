@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $amount
  * @property-read \App\Models\Meal $meal
  * @method static \Illuminate\Database\Eloquent\Builder|Ingredient whereAmount($value)
+ * @method static \Database\Factories\IngredientFactory factory($count = null, $state = [])
  * @mixin \Eloquent
  */
 class Ingredient extends Model

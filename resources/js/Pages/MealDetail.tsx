@@ -7,9 +7,6 @@ import { Head, router } from "@inertiajs/react";
 import { PageProps } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/Components/ui/data-table";
-import { Button } from "@/Components/ui/button";
-
-import { ArrowUpDown } from "lucide-react";
 
 const columns: ColumnDef<Models.Ingredient>[] = [
     {
@@ -39,25 +36,17 @@ export default function Meals({
     };
 
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={
-                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                    {meal.name}
-                </h2>
-            }
-        >
+        <AuthenticatedLayout user={auth.user}>
             <Head title={meal.name} />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <DataTable
-                            columns={columns}
-                            data={meal.ingredients}
-                            showPagination={false}
-                        />
-                    </div>
+                    <h2 className="text-center">{meal.name}</h2>
+                    <DataTable
+                        columns={columns}
+                        data={meal.ingredients}
+                        showPagination={false}
+                    />
                 </div>
             </div>
         </AuthenticatedLayout>

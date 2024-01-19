@@ -15,11 +15,11 @@ class MealController extends Controller
      */
     public function index()
     {
-        $user = User::find(Auth::id());
-        $meals = $user->meals()->withCount('ingredients')->get();
+        $meals = Meal::whereUserId(Auth::id())->withCount('ingredients')->get();
         
         return Inertia::render('Meals', [
             'meals' => $meals,
+            'new_route' => route('meals.create'),
         ]);
     }
 
@@ -30,6 +30,7 @@ class MealController extends Controller
     {
         return Inertia::render('MealDetail', [
             'meal' => $meal,
+            'new_link' => route('meals.create'),
         ]);
     }
 
