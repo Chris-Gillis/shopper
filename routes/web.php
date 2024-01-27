@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\MealController;
 use App\Http\Controllers\ProfileController;
@@ -32,7 +33,11 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('meals', MealController::class)
-    ->only('index', 'show', 'create', 'edit')
+    ->only('index', 'show', 'create', 'store', 'update', 'destroy')
+    ->middleware('auth');
+
+Route::resource('meals.ingredients', IngredientController::class)
+    ->only('store', 'edit', 'destroy')
     ->middleware('auth');
 
 Route::resource('lists', ListController::class)

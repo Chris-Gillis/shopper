@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Meal;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -15,11 +14,11 @@ class MealController extends Controller
      */
     public function index()
     {
-        $meals = Meal::whereUserId(Auth::id())->withCount('ingredients')->get();
+        $meals = Meal::whereUserId(Auth::id())->withCount('ingredients')->orderBy('created_at', 'desc')->get();
         
         return Inertia::render('Meals', [
             'meals' => $meals,
-            'new_route' => route('meals.create'),
+            'new_route' => route('meals.store'),
         ]);
     }
 
@@ -30,24 +29,27 @@ class MealController extends Controller
     {
         return Inertia::render('MealDetail', [
             'meal' => $meal,
-            'new_link' => route('meals.create'),
+            'new_link' => route('meals.store'),
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Meal $meal)
+    public function store(Request $request)
     {
-        //
-    }
+        $validated = $request->validate([
+            'name' => 'required',
+        ]);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Meal $meal)
-    {
-        //
+        Meal::create([
+            'name' => $validated['name'],
+            'user_id' => Auth::id(),
+        ]);
+
+        $meals = Meal::whereUserId(Auth::id())->withCount('ingredients')->orderBy('created_at', 'desc')->get();
+
+        return Inertia::render('Meals', [
+            'meals' => $meals,
+            'new_route' => route('meals.store'),
+        ]);
     }
 
     /**
@@ -55,6 +57,10 @@ class MealController extends Controller
      */
     public function destroy(Meal $meal)
     {
-        //
+        if ($meal->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $meal->delete();
     }
 }

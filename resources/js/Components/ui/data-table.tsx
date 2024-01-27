@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { router } from "@inertiajs/react";
 import {
     ColumnDef,
     ColumnFiltersState,
@@ -23,7 +22,6 @@ import {
 } from "@/Components/ui/table";
 
 import { Button } from "@/Components/ui/button";
-import { Input } from "@/Components/ui/input";
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
@@ -36,12 +34,9 @@ export function DataTable<TData, TValue>({
     columns,
     data,
     showPagination = true,
-    onRowClick,
 }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-
-    const clickable = !!onRowClick;
 
     const table = useReactTable({
         data,
@@ -54,7 +49,6 @@ export function DataTable<TData, TValue>({
         getSortedRowModel: getSortedRowModel(),
         onColumnFiltersChange: setColumnFilters,
         getFilteredRowModel: getFilteredRowModel(),
-        enableRowSelection: clickable,
         state: {
             sorting,
             columnFilters,
@@ -77,10 +71,8 @@ export function DataTable<TData, TValue>({
 
         return rows.map((row) => (
             <TableRow
-                onClick={() => onRowClick && onRowClick(row.original)}
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
-                className={clickable ? "cursor-pointer" : ""}
             >
                 {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

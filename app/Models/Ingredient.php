@@ -34,6 +34,8 @@ class Ingredient extends Model
 
     protected $fillable = [
         'name',
+        'amount',
+        'meal_id',
     ];
 
     public function meal(): BelongsTo
