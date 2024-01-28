@@ -18,7 +18,8 @@ import {
 } from "@/Components/ui/dialog";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
-import { Icon } from "@/Components/Icon";
+import { TrashIcon } from "@heroicons/react/24/outline";
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/solid";
 
 const columns: ColumnDef<Models.Meal>[] = [
     {
@@ -54,14 +55,12 @@ function actionColumn(meal: Models.Meal) {
         <div className="flex flex-row gap-2">
             {!!meal.route && (
                 <>
-                    <Icon
-                        icon="open"
-                        className="cursor-pointer"
+                    <ArrowTopRightOnSquareIcon
+                        className="cursor-pointer h-8 w-8"
                         onClick={() => router.get(meal.route)}
                     />
-                    <Icon
-                        icon="delete"
-                        className="cursor-pointer"
+                    <TrashIcon
+                        className="cursor-pointer h-8 w-8"
                         onClick={() => router.delete(meal.route)}
                     />
                 </>

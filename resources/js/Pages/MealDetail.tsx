@@ -11,16 +11,22 @@ import { Label } from "@/Components/ui/label";
 import { Input } from "@/Components/ui/input";
 import { Button } from "@/Components/ui/button";
 import { FormEvent, useRef } from "react";
-import { Icon } from "@/Components/Icon";
+import { TrashIcon } from "@heroicons/react/24/outline";
 
 const columns: ColumnDef<Models.Ingredient>[] = [
     {
         accessorKey: "name",
         header: "Name",
+        cell: ({ row }) => {
+            return <span className="text-lg">{row.original.name}</span>;
+        },
     },
     {
         accessorKey: "amount",
         header: "Amount",
+        cell: ({ row }) => {
+            return <span className="text-lg">{row.original.amount}</span>;
+        },
     },
     {
         accessorKey: "id",
@@ -33,9 +39,8 @@ const columns: ColumnDef<Models.Ingredient>[] = [
 
 function actionColumn(ingredient: Models.Ingredient) {
     return (
-        <Icon
-            icon="delete"
-            className="cursor-pointer"
+        <TrashIcon
+            className="cursor-pointer h-8 w-8"
             onClick={() =>
                 router.delete(
                     route("meals.ingredients.destroy", [
@@ -72,7 +77,7 @@ export default function Meals({
     return (
         <AuthenticatedLayout user={auth.user}>
             <Head title={meal.name} />
-            <div className="py-12">
+            <div className="p-12">
                 <h1 className="text-center h-24">{meal.name}</h1>
                 <div className="flex flex-wrap gap-8">
                     <div className="w-60 space-y-5">

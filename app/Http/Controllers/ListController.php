@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\GroceryList;
+use App\Models\Meal;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -20,6 +21,8 @@ class ListController extends Controller
 
     public function create()
     {
-        return Inertia::render('CreateList');
+        return Inertia::render('CreateList', [
+            'meals' => Meal::whereUserId(Auth::id())->with('ingredients')->get(),
+        ]);
     }
 }

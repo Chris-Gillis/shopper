@@ -9,19 +9,19 @@ export default function Authenticated({
     children,
 }: PropsWithChildren<{ user: User }>) {
     return (
-        <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
-            <div className="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
-                <div className="flex h-full max-h-screen flex-col gap-2">
+        <div className="grid w-full lg:grid-cols-[280px_1fr]">
+            <div className="border-r  lg:block h-screen bg-gray-100/40">
+                <div className="flex flex-col gap-2">
                     <div className="flex h-20 gap-2 justify-center items-center border-b px-6">
                         <ApplicationLogo className="w-8 h-8" />
                         <Link
                             className="flex items-center gap-2 font-semibold text-lg"
-                            href="#"
+                            href="/meals"
                         >
                             <span className="">Listerino</span>
                         </Link>
                     </div>
-                    <div className="flex-1 overflow-auto py-2">
+                    <div className="flex-1 py-2">
                         <nav className="grid items-start px-4 text-lg font-medium">
                             <NavLink
                                 active={route().current("meals")}
@@ -39,11 +39,7 @@ export default function Authenticated({
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col">
-                <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
-                    {children}
-                </main>
-            </div>
+            <main className="max-h-screen overflow-y-auto">{children}</main>
         </div>
     );
 }
