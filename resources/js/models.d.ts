@@ -23,7 +23,6 @@ declare namespace Models {
         name: string;
         route: string;
         ingredients: Models.Ingredient[];
-        ingredients_count: number;
     }
 
     export interface Ingredient {
@@ -37,12 +36,12 @@ declare namespace Models {
 
     export interface GroceryList {
         id: number;
+        name: string;
         user_id: number;
         created_at: string;
         updated_at: string;
         route: string;
-        list_items: Models.GroceryListItem[];
-        list_items_count: number;
+        items: Models.GroceryListItem[];
     }
 
     export interface GroceryListItem {
@@ -52,5 +51,6 @@ declare namespace Models {
         updated_at: string;
         name: string;
         amount: string;
+        is_checked: boolean;
     }
 }

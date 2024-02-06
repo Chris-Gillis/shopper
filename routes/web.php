@@ -36,13 +36,21 @@ Route::resource('meals', MealController::class)
     ->only('index', 'show', 'create', 'store', 'update', 'destroy')
     ->middleware('auth');
 
-Route::resource('meals.ingredients', IngredientController::class)
-    ->only('store', 'edit', 'destroy')
+Route::resource('lists', ListController::class)
+    ->only('index', 'show', 'create', 'edit', 'store')
     ->middleware('auth');
 
-Route::resource('lists', ListController::class)
-    ->only('index', 'show', 'create', 'edit')
+Route::scopeBindings()->group(function (){
+    Route::resource('meals.ingredients', IngredientController::class)
+    ->only('store', 'edit', 'destroy')
     ->middleware('auth');
+    
+    Route::resource('lists.items', IngredientController::class)
+    ->only('store', 'edit', 'destroy')
+    ->middleware('auth');
+});
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

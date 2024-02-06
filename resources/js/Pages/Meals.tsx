@@ -9,13 +9,7 @@ import { PageProps } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/Components/ui/data-table";
 import { Button } from "@/Components/ui/button";
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTrigger,
-} from "@/Components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/Components/ui/dialog";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import { TrashIcon } from "@heroicons/react/24/outline";
@@ -30,7 +24,7 @@ const columns: ColumnDef<Models.Meal>[] = [
         accessorKey: "ingredients_count",
         header: "# Ingredients",
         cell: ({ row }) => {
-            return row.original.ingredients_count ?? 0;
+            return row.original?.ingredients.length ?? 0;
         },
     },
     {
@@ -150,11 +144,7 @@ export default function Meals({
                                 </DialogContent>
                             </Dialog>
                         </div>
-                        <DataTable
-                            columns={columns}
-                            data={meals}
-                            onRowClick={openMeal}
-                        />
+                        <DataTable columns={columns} data={meals} />
                     </div>
                 </div>
             </div>

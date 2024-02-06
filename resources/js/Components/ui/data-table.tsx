@@ -22,21 +22,38 @@ import {
 } from "@/Components/ui/table";
 
 import { Button } from "@/Components/ui/button";
+import { Checkbox } from "./checkbox";
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[];
     data: TData[];
     showPagination?: boolean;
-    onRowClick?: (row: TData) => void;
+    onRowSelect?: (row: Row<TData>) => void;
 }
 
 export function DataTable<TData, TValue>({
     columns,
     data,
     showPagination = true,
+    onRowSelect,
 }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+
+    if (onRowSelect) {
+        columns.unshift({
+            accessorKey: "selected",
+            header: "",
+            cell: ({ row }) => {
+                return (
+                    <Checkbox
+                        checked={row.getIsSelected()}
+                        onCheckedChange={() => onRowSelect(row)}
+                    />
+                );
+            },
+        });
+    }
 
     const table = useReactTable({
         data,

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\GroceryList;
 use App\Models\Meal;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -40,6 +41,10 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::bind('meal', function ($value) {
             return Meal::with('ingredients')->findOrFail($value);
+        });
+
+        Route::bind('list', function ($value) {
+            return GroceryList::with('items')->findOrFail($value);
         });
     }
 }

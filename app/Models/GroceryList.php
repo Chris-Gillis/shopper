@@ -47,4 +47,9 @@ class GroceryList extends Model
             get: fn () => route('lists.show', $this)
         );
     }
+
+    public function meals(): HasMany
+    {
+        return $this->hasMany(Meal::class);
+    }
 }

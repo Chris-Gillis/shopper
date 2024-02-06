@@ -53,7 +53,7 @@ function actionColumn(ingredient: Models.Ingredient) {
     );
 }
 
-export default function Meals({
+export default function MealDetails({
     auth,
     meal,
 }: PageProps<{ meal: Models.Meal }>) {
